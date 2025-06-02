@@ -43,7 +43,7 @@ for (param_name in names(param_codes)) {
     
     if (!is.null(data) && nrow(data) > 0) {
       # ✅ Corrected save path here
-      saveRDS(data, file = file.path("data", "aqs_data", paste0(param_name, "_", param_code, ".rds")))
+      saveRDS(data, file = file.path("data", "aqs_data", paste0(param_name, ".rds")))
       message("Saved: ", param_name)
     } else {
       warning("No data returned for ", param_name, " (", param_code, ")")
