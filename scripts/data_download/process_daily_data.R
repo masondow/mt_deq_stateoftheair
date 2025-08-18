@@ -65,11 +65,11 @@ for (pollutant in pollutants) {
     ) %>%
     relocate(year, month, quarter, season, .after = date_local)
   
-  #-------------------(4) Add PM2.5 Flags--------------------
-  if (pollutant == "PM2.5") {
-    message("🚩 Adding PM2.5 flags...")
+  #-------------------(4) Add wildfire Flags--------------------
+  if (pollutant %in% c("PM2.5", "PM10")) {
+    message("🚩 Adding wildfire flags...")
     
-    hourly <- readRDS("data/aqs_data/hourly_raw/PM2.5_hourly.rds")
+    hourly <- readRDS(paste0("data/aqs_data/hourly_raw/", pollutant, "_hourly.rds"))
     
     qualifiers <- c(
       "RT - Wildfire-U. S.",

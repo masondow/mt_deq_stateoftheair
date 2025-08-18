@@ -114,7 +114,7 @@ download_and_save_daily_data(target_parameters)
 
 
 #----------DOWNLOAD AQS HOURLY DATA (only PM2.5 right now [to get qualifiers])----------------------------------------
-target_parameters_pm25 <- target_parameters %>%
+target_parameters_hourly <- target_parameters %>%
   filter(criteria_pollutant == 'PM2.5')
 
 download_and_save_hourly_data <- function(target_parameters, byear = 2000, state_fips = 30, save_dir = "data/aqs_data/hourly_raw") {
@@ -197,6 +197,7 @@ download_and_save_hourly_data <- function(target_parameters, byear = 2000, state
         message("✅ Updated file: ", file_path, 
                 " (added ", nrow(all_data), " new rows, replaced ", num_replaced, " old rows)")    #if current year is the same as the last updated year, then rows added and rows replaced will likely be the same (unless data for a new quarter has been added since the last update)
       } else {
+        all_data$date_local <- as.Date(all_data$date_local)
         saveRDS(all_data, file = file_path)
         message("✅ Created new file: ", file_path, " with ", nrow(all_data), " rows")
       }
@@ -207,5 +208,5 @@ download_and_save_hourly_data <- function(target_parameters, byear = 2000, state
   }
 }
 
-download_and_save_hourly_data(target_parameters_pm25)
+download_and_save_hourly_data(target_parameters_hourly)
 
